@@ -5,11 +5,40 @@
 
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
-
+  const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
   function substitution(input, alphabet, encode = true) {
-    // your solution code here
+    if (!alphabet || alphabet.length !== alpha.length) return false;
+    for (let i = 1; i < alphabet.length; i++) {
+      let firstChar = alphabet[0];
+      if (firstChar === alphabet[i]) {
+        return false;
+      } else {
+        firstChar = alphabet[i];
+      }
+    }
+    let message = "";
+    if (!encode) {
+      for (let i = 0; i < input.length; i++) {
+        if (input[i] === " ") message += input[i];
+        for (let j = 0; j < alphabet.length; j++) {
+          if (input[i] === alphabet[j]) {
+            message += alpha[j];
+          }
+        }
+      }
+      return message;
+    } else if (encode) {
+      for (let i = 0; i < input.length; i++) {
+        if (input[i] === " ") message += input[i];
+        for (let j = 0; j < alpha.length; j++) {
+          if (input[i] === alpha[j]) {
+            message += alphabet[j];
+          }
+        }
+      }
+      return message;
+    }
   }
-
   return {
     substitution,
   };
