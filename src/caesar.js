@@ -4,29 +4,57 @@
 // of the anonymous function on line 6
 
 const caesarModule = (function () {
-  // you can add any code you want within this function scope
-
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
   function caesar(input, shift, encode = true) {
-    // your solution code here
-    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    const message = input.toLowerCase();
-    let newMessage; 
-    let newLetter = [];
-     if (!shift || shift == undefined) return false;
-     if (shift === 0 || shift > 25 || shift < -25) return false;
-     for (let i = 0; i < message.length; i++) {
-      for (let j = 0; j < alphabet.length; j++) {
-        let letter = "";
-         if (alphabet[j] == message[i]) {
-         //let newLetter;
-          letter = (alphabet[j + shift])
-         newMessage = message.replace(message[i], letter);
+    let message = input.toLowerCase();
+    let decoded = "";
+    if (
+      shift === 0 ||
+      shift > 25 ||
+      shift < -25 ||
+      !shift ||
+      shift == undefined
+    )
+      return false;
+    if (!encode) {
+      let newLetter = "";
+      for (let i = 0; i < message.length; i++) {
+        if (!alphabet.includes(message[i])) {
+          decoded += message[i];
+        } else {
+          for (let j = 0; j < alphabet.length; j++) {
+            if (message[i] === alphabet[j]) {
+              let index = j - shift;
+              if (index >= alphabet.length) index -= alphabet.length;
+              if (index < 0) index += alphabet.length;
+              newLetter = alphabet[index];
+              decoded += newLetter;
+            }
+          }
         }
       }
+      return decoded;
     }
-    return newMessage;
+    if (encode) {
+      let newLetter = "";
+      for (let i = 0; i < message.length; i++) {
+        if (!alphabet.includes(message[i])) {
+          decoded += message[i];
+        } else {
+          for (let j = 0; j < alphabet.length; j++) {
+            if (message[i] === alphabet[j]) {
+              let index = j + shift;
+              if (index > alphabet.length) index -= alphabet.length;
+              if (index < 0) index += alphabet.length;
+              newLetter = alphabet[index];
+              decoded += newLetter;
+            }
+          }
+        }
+      }
+      return decoded;
+    }
   }
-
   return {
     caesar,
   };

@@ -33,25 +33,25 @@ describe("caesarModule", () => {
     });
     it("should ignore capital letters", () => {
         const input = "KhOor";
-        const encode = true;
-        const shift = -3;
+        const encode = false;
+        const shift = 3;
         const expected = "hello"
         const actual = caesarModule.caesar(input, shift, encode);
         expect(actual).to.equal(expected);
     });
     it("should maintain spaces in the message after encoding or decoding", () => {
-        const input = "Khoor vkhuh";
-        const encode = true;
-        const shift = -3;
+        const input = "Khoor wkhuh";
+        const encode = false;
+        const shift = 3;
         const expected = "hello there"
         const actual = caesarModule.caesar(input, shift, encode);
         expect(actual).to.equal(expected);
     });
     it("should handle shifts that go past the end of the alphabet", () => {
         const input = "gdccoh";
-        const encode = true;
-        const shift = -3;
-        const expected = "hello"
+        const encode = false;
+        const shift = 3;
+        const expected = "dazzle"
         const actual = caesarModule.caesar(input, shift, encode);
         expect(actual).to.equal(expected);
     });
