@@ -37,4 +37,10 @@ describe("polybius(), my tests", () => {
     const expected = "3251131343 2543241341";
     expect(actual).to.equal(expected);
   });
+  it("should return the correct coded message", () => {
+    const input = "message";
+    const actual = polybiusModule.polybius(input, encode = true);
+    const expected = "23513434112251";
+    expect(actual).to.equal(expected);
+  })
 });
