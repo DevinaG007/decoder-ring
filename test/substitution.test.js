@@ -12,7 +12,7 @@ describe("substitution tests written by student", () => {
     });
     it("should encode a message using the given alphabet", () => {
         const input = "autumn";
-        const alphabet = "$wae&zr!xtfcygvuhbijnokmpl";
+        const alphabet = "$wae&zr!xTfcygvuhbiJnokmpl";
         const actual = substitutionModule.substitution(input, alphabet,true);
         const expected = "$njnyg";
         expect(actual).to.equal(expected); 

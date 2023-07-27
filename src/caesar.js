@@ -5,9 +5,34 @@
 
 const caesarModule = (function () {
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  function caesar(input, shift, encode = true) {
+  const findMatchingLetter = (input, shift, encode) => {
     let message = input.toLowerCase();
     let decoded = "";
+    let newLetter = "";
+    for (let i = 0; i < message.length; i++) {
+      if (!alphabet.includes(message[i])) {
+        decoded += message[i]; //adds spaces and special characters back to the message
+      } else {
+        for (let j = 0; j < alphabet.length; j++) {
+          if (message[i] === alphabet[j]) {
+            let index;
+            if (!encode) {
+              index = j - shift;
+            } else if (encode) {
+              index = j + shift;
+            }
+            if (index >= alphabet.length) index -= alphabet.length;
+            if (index < 0) index += alphabet.length;
+            newLetter = alphabet[index];
+            decoded += newLetter;
+          }
+        }
+      }
+    }
+    return decoded;
+  };
+
+  function caesar(input, shift, encode = true) {
     if (
       shift === 0 ||
       shift > 25 ||
@@ -16,44 +41,8 @@ const caesarModule = (function () {
       shift == undefined
     )
       return false;
-    if (!encode) {
-      let newLetter = "";
-      for (let i = 0; i < message.length; i++) {
-        if (!alphabet.includes(message[i])) {
-          decoded += message[i];
-        } else {
-          for (let j = 0; j < alphabet.length; j++) {
-            if (message[i] === alphabet[j]) {
-              let index = j - shift;
-              if (index >= alphabet.length) index -= alphabet.length;
-              if (index < 0) index += alphabet.length;
-              newLetter = alphabet[index];
-              decoded += newLetter;
-            }
-          }
-        }
-      }
-      return decoded;
-    }
-    if (encode) {
-      let newLetter = "";
-      for (let i = 0; i < message.length; i++) {
-        if (!alphabet.includes(message[i])) {
-          decoded += message[i];
-        } else {
-          for (let j = 0; j < alphabet.length; j++) {
-            if (message[i] === alphabet[j]) {
-              let index = j + shift;
-              if (index > alphabet.length) index -= alphabet.length;
-              if (index < 0) index += alphabet.length;
-              newLetter = alphabet[index];
-              decoded += newLetter;
-            }
-          }
-        }
-      }
-      return decoded;
-    }
+    const createMessage = findMatchingLetter(input, shift, encode);
+    return createMessage;
   }
   return {
     caesar,

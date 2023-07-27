@@ -3,12 +3,11 @@
 // Only add code (helper methods, variables, etc.) within the scope
 // of the anonymous function on line 6
 
-const substitutionModule = (function () {
-  // you can add any code you want within this function scope
+const substitutionModule = (function (input, alphabet, encode = true) {
   const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
   function substitution(input, alphabet, encode = true) {
     if (!alphabet || alphabet.length !== alpha.length) return false;
-    for (let i = 1; i < alphabet.length; i++) {
+    for (let i = 1; i < alphabet.length; i++) { //checks for duplicate characters in the alphabet
       let firstChar = alphabet[0];
       if (firstChar === alphabet[i]) {
         return false;
@@ -17,27 +16,24 @@ const substitutionModule = (function () {
       }
     }
     let message = "";
-    if (!encode) {
       for (let i = 0; i < input.length; i++) {
         if (input[i] === " ") message += input[i];
+        if (!encode){ //decoding the input message
         for (let j = 0; j < alphabet.length; j++) {
           if (input[i] === alphabet[j]) {
             message += alpha[j];
           }
         }
       }
-      return message;
-    } else if (encode) {
-      for (let i = 0; i < input.length; i++) {
-        if (input[i] === " ") message += input[i];
+      else if (encode){ //encoding the input message
         for (let j = 0; j < alpha.length; j++) {
-          if (input[i] === alpha[j]) {
-            message += alphabet[j];
+          if (input[i]=== alpha[j]) {
+            message += alphabet[j]
           }
         }
       }
-      return message;
-    }
+      }
+      return message.toLowerCase();
   }
   return {
     substitution,
